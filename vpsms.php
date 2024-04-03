@@ -3,7 +3,7 @@
 *Plugin Name: VP SMS
 *Plugin URI: http://vtupress.com
 *Description: Add BulkSms feature to your vtu business . An extension for vtupress plugin
-*Version: 1.2.8
+*Version: 1.2.9
 *Author: Akor Victor
 *Author URI: https://facebook.com/akor.victor.39
 */
@@ -65,6 +65,18 @@ function vp_addoption(){
 
 
 
+require __DIR__.'/plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/bikendi-tech-solutions/vpsms',
+	__FILE__,
+	'vpsms'
+);
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('main');
+
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
 
 add_action("user_feature","sms_user_feature");
